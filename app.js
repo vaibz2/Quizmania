@@ -17,8 +17,6 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(session({secret:"73gf83fg34fg4hffb0bx", resave: false, saveUninitialized: true}));
 
-// mongoose.connect("mongodb+srv://pvaibzDB:st1llth1nk1ng@cluster0.gsiva.mongodb.net/quizmaniaDB?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true});
-
 mongoose.connect("mongodb://localhost:27017/quizmaniaDB", { useNewUrlParser: true, useUnifiedTopology: true});
 
 // Question Schema
