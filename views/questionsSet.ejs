@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quizmania - Make and play online quizes</title>
+
+    <link rel="icon" href="/images/icon-img1.png">
+
+    <!-- CSS styles-->
+    <link rel="stylesheet" href="/css/style1.css">
+
+    <!--Google Fonts-->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;600;800;900&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    
+    <script>
+    $(document).ready(function(){
+        $('#icon-bars').click(function(){
+            $('ul').toggleClass('show');
+        });
+    });
+
+    </script>
+    
+</head>
+<body>
+    <!-- Section 1-->
+
+    <div id="Section-1">
+        <nav class="navigation-bar createNav">
+            <div class="logo">
+                <a class="logo-txt" href="/">Quizmania</a>
+            </div>
+            
+            <ul>
+                <li class="nav-list new-nav-list create-navlist">
+                    <div class="dropdown">
+                        <button class="dropbtn"><i class="fas fa-cog"></i> Settings </button>
+                        <div class="dropdown-content">
+                            <a href="/dashboard/logout">Log out</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <label id="icon-bars">
+                <i class="fas fa-bars"></i>
+            </label>
+        </nav>
+        <form method="POST">
+            <div style="min-height: 100vh;" class="creatediv-quizDetails">
+                <div class="crt-step">
+                    <h3>2. Questions</h3>
+                    <br>
+
+                    <div id="div1" class="ques-div">
+                        <div class="numbering" style='border-bottom: 1px solid #04AA6D; margin-bottom: 15px;'>
+                            <span name="numSet">1</span> 
+                            <a name="q1" onclick="delQues(name);"><i alt="X"class="fas fa-times delQuesBox-class" style="float: right; color: rgb(238, 62, 62);"></i></a>
+                        </div>
+                        
+                        <div class="step1-divs">
+                            <label class="step1-labls">Question<span class="reqstar">*</span></label><br>
+                            <textarea style="font-weight: 500;" rows="3" class="quizinfo-input" name="quiz_topic" required autofocus></textarea>
+                        </div>
+                        <div class="step1-divs">
+                            <label class="step1-labls">Answers<span class="reqstar">*</span></label><label class="step1-labls" style="float: right;">Correct?</label><br>
+                            <div id="ansBox"><textarea rows="2" class="answer-options" name="o1"  required></textarea><input id="tickON" class="tick-radio" type="radio" style="float: right; margin: 23px 26px;" name="correctAns1" value="o1" required></div> 
+                            <div id="ansBox"><textarea rows="2" class="answer-options" name="o2"  required></textarea><input id="tickON" class="tick-radio" type="radio" style="float: right; margin: 23px 26px;" name="correctAns1" value="o2" required></div>
+                            <span id="dyn1"></span>
+                            <span id='default1'>
+                                <div id="defInputs1">
+                                    <input type='hidden' name='o3' value='nul1Span'></input>
+                                    <input type='hidden' name='o4' value='nul1Span'></input>
+                                </div>
+                            </span> 
+                            <span id="spAdd1">
+                                <div id="addADiv1">
+                                    <i class="fas fa-plus" style="color: #04AA6D"></i> <a name="dyn1" style="color: white; cursor: pointer;" onclick="addInput(name)">Add Answer</a>
+                                </div>
+                            </span>
+                        </div>
+                    </div>
+                    <br>
+                    <span id="newQuesBox"></span>
+                </div>
+                <div class="bottom-bar">
+                    <br>
+                    <button class="info-btn bottom-btn-save" name="save" type="submit">Save</button>
+                    <button class="info-btn" name="addQues" onclick="addQuesBox()">Add a Question</button>
+                </div>
+                <br>
+                <br>
+            </div>
+            
+        </form>
+        
+    </div>
+    <script src="/main.js" type="text/javascript"></script>
+    
+</body>
+</html>

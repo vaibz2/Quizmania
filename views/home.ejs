@@ -1,0 +1,204 @@
+<%- include("partials/header") -%>
+        <!-- section-1 elements -->
+        <div class="container">
+            <div class="container-left">
+                <p class="welcome-txt">Welcome to Quizmania</p>
+                <h1>
+                   Play Online quiz and keep playing :)
+                </h1>
+                <form class="join-form" method="POST">
+                    <p>Enter your code:</p>
+                    <div class="input-txt">
+                        <input name="qCode" type="text" placeholder="123456">
+                    </div>
+                    
+                    <button class="join-btn"  type="submit">Join Quiz</button>
+                </form>
+
+            </div>
+            <div class="container-right">
+               <img class="svg-element" src="images/front-img3.png"> 
+            </div>
+        </div>
+       
+    </div>
+
+    <!-- Section-2 -->
+    <section id="Section-2">
+        <div class="scnd-container">
+            <div class="createquiz-head">
+                <h2>Organize Live Multiplayer Quiz for Your Event!</h2>
+            </div>
+            <br>
+            <div class="engaging-txt">
+                <p>Do you want to engage your target audience in a fun and playful way? Are your students retaining your lessons? Find out in real time! With Our Quizmania it's easy to make a quiz in less than five minutes.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section3 or Frame 3 -->
+    <div class="frame3">
+        <h3>Private, Business or Enterprise level events are supported!</h3>
+        <a href="/signup"><button class="tryFree crt" type="button">Sign Up</button></a>
+        <a href="/login"><button class="tryFree sign-up-btn" type="button">Login</button></a>
+        <div class="whyUse">
+            <div class="useCase">
+                <i class="fas fa-heart fa-2x suppIco"></i>
+                <h3 id="usesTxt">Easy to use</h3>
+                <p>Our quiz creator is a simple and easy to use. For students as well as for the administrators. With our 
+                    online quiz creator it's easy to start, which makes it more fun.
+
+                </p>
+            </div>
+            <div class="useCase">
+                <i class="material-icons suppIco" style="font-size:36px">phonelink</i>
+                <h3 id="usesTxt">Looks great on all devices</h3>
+                <p>
+                    It doesn't matter if you are on a phone, tablet or pc: your online quiz will look beautiful. Our quiz creator is 
+                    fully responsive, so you can engage your audience on any platform.
+                </p>
+            </div>
+            <div class="useCase">
+                <i class="far fa-comment-alt fa-2x suppIco"></i>
+                <h3 id="usesTxt">Awesome support</h3>
+                <p>
+                    Do you have any questions about our online quiz software? Our support owls are always by your side 
+                    and provide you with the best possible support!
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 4 -->
+    <section id="Section-4">
+        <h1>How it works</h1>
+        <br>
+        <br>
+
+        <div class="how-works-setdiv">
+
+        
+            <div class="select-how-works">
+                <ul>
+                    <p id="s0" onclick="select_card(0);" class="list-option-card list-option-card-selected"><i class="fas fa-star"></i> Designing a quiz</p>
+                    <p id="s1" onclick="select_card(1);" class="list-option-card"><i class="fas fa-star"></i> Inviting players</p>
+                    <p id="s2" onclick="select_card(2);" class="list-option-card"><i class="fas fa-star"></i> Checking in</p>
+                    <p id="s3" onclick="select_card(3);" class="list-option-card"><i class="fas fa-star"></i> Playing the game</p>
+                    <p id="s4" onclick="select_card(4);" class="list-option-card"><i class="fas fa-star"></i> Leaderboard</p>
+                </ul>
+            </div>
+
+           
+
+            
+            <div id="smart-card" class="svgs-main-div">
+
+                <div class="content-how">
+                    <h2 class="how-it-works-heading">Designing</h2>
+                    <br>
+                    <div class="how-work-div-description">
+                        <p>
+                            The quiz host composes the questions and sets the parameters, such as, the points per answer, the time to submit the answer, all at quizmania.
+                        </p>
+                    </div>
+                    <img class="question-marks-svg" src="images/svg-2-question-mark.svg">
+                    <img class="svg-3-answer" src="images/svg-3-answer.svg">
+                </div>
+
+                <div class="cartoon-img">
+                    <img class="svg-1" src="images/design-1.svg"></img>
+                </div>
+
+            </div>
+            
+        </div>
+
+
+
+        
+
+    </section>
+
+    <section id="sect-5">
+        <!-- Inviting players div  -->
+
+        <div class="svgs-main-div hidden-main-div">
+
+            <div class="content-how">
+                <h2 class="how-it-works-heading">Inviting players</h2>
+                <br>
+                <div class="how-work-div-description">
+                    <p>
+                        After the quiz is all set, the host receives a unique digital code for their game. They can share this code with their audience on social media, or by any preferred means.
+                    </p>
+                </div>
+                
+                
+            </div>
+    
+            <div class="cartoon-img">
+                <img class="quiz-code-svg" src="images/digitalCode.svg">
+            </div>
+        </div>
+        
+         <!-- Checking In  -->
+
+         <div class="svgs-main-div hidden-main-div">
+
+            <div class="content-how">
+                <h2 class="how-it-works-heading">Checking in</h2>
+                <br>
+                <div class="how-work-div-description">
+                    <p>
+                        To join the game, participants enter the digital code at the Quizmania website or proceed to the direct link on their mobile devices or PCs.
+                    </p>
+                </div>
+            </div>
+            <div class="cartoon-img">
+                <img class="checkin-svg" src="images/checkin.svg">
+            </div>
+        </div>
+
+        <!-- Playground -->
+        <div class="svgs-main-div hidden-main-div">
+
+            <div class="content-how">
+                <h2 class="how-it-works-heading">Playing the game</h2>
+                <br>
+                <div class="how-work-div-description">
+                    <p>
+                        The host launches the game. The players see the questions and the answer options on their mobile devices and click on the chosen answer.
+                    </p>
+                </div>
+            </div>
+            <div class="cartoon-img">
+                <img class="playgound-svg" src="images/playground.svg">
+            </div>
+        </div>
+
+
+        <!-- Leaderboard -->
+        <div class="svgs-main-div hidden-main-div">
+
+            <div class="content-how">
+                <h2 class="how-it-works-heading">Leaderboard</h2>
+                <br>
+                <div class="how-work-div-description">
+                    <p>
+                        Players get points for correct answers. The leaderboard is displayed right after the play.
+                    </p>
+                </div>
+            </div>
+            <div class="cartoon-img">
+                <img class="leaderboard-svg" src="images/leaderboard.svg">
+            </div>
+        </div>
+        
+    </section>
+    
+    
+    <%- include("partials/footer") -%>
+    <script src="main.js"></script>
+</body>
+</html>

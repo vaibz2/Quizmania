@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quizmania - Make and play online quizes</title>
+
+    <link rel="icon" href="../images/icon-img1.png">
+
+    <!-- CSS styles-->
+    <link rel="stylesheet" href="../css/style1.css">
+
+    <!--Google Fonts-->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;600;800;900&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    
+    <script>
+    $(document).ready(function(){
+        $('#icon-bars').click(function(){
+            $('ul').toggleClass('show');
+        });
+    });
+
+    </script>
+
+</head>
+<body>
+    <!-- Section 1-->
+
+    <div id="Section-1">
+        <nav class="navigation-bar createNav">
+            <div class="logo">
+                <a class="logo-txt" href="/">Quizmania</a>
+            </div>
+            
+            <ul>
+                <li class="nav-list new-nav-list">
+                    <div class="dropdown">
+                        <button class="dropbtn"><i class="fas fa-cog"></i> Settings </button>
+                        <div class="dropdown-content">
+                            <a href="/dashboard/logout">Log out</a>
+                        </div>
+                    </div>
+                <a class="Crt-btn" href="/dashboard/Create"><button class="create-btn user-btn">Create Quiz</button></a>
+            </ul>
+            <label id="icon-bars">
+                <i class="fas fa-bars"></i>
+            </label>
+        </nav>
+
+        <div class="user-dashboard">
+            <div class="quiz-infoBox">
+                <div class="infoBox1">
+                    <h4><%= quizinfo.topicName %></h4>
+                    <p class="quiz-desc"> - <%= quizinfo.topicDesc %></p>
+                    <br>
+                    <% var index = quizinfo.quizDate.indexOf(","); %>
+                    <p>On <%= quizinfo.quizDate.slice(index+1, quizinfo.quizDate.length) %> at <%= quizinfo.quizTime %></p>
+                </div>  
+                <% for(i = 0; i < quizinfo.ques.length; i++){ %>
+                <% var correct = quizinfo.ques[i].correctCH; %>
+                <% const classCH = "correctChoice"; %>
+                <div style="border-bottom: 1px solid #2978b5;" class="quiz-questions">
+                    <p><span class="quesNum">Q<%= i+1 %>. </span><span class="ques__"><%= quizinfo.ques[i].quesName %></span></p>
+                    <br>
+
+                    <% if(correct === "o1") { %>
+                        <p name="o1" class="quiz_options <%= classCH %>"><span class="option_span">Option 1 : </span> <%= quizinfo.ques[i].choice1 %></p>
+                    <% } else { %>
+                        <p name="o1" class="quiz_options"><span class="option_span">Option 1 : </span> <%= quizinfo.ques[i].choice1 %></p>
+                    <% } %>
+
+                    <% if(correct === "o2") { %>
+                        <p name="o2" class="quiz_options <%= classCH %>"><span class="option_span">Option 2 : </span> <%= quizinfo.ques[i].choice2 %></p>
+                    <% } else { %>
+                        <p name="o2" class="quiz_options"><span class="option_span">Option 2 : </span> <%= quizinfo.ques[i].choice2 %></p>
+                    <% } %>
+
+
+                    <% if(quizinfo.ques[i].choice3 !== "nul1Span" && quizinfo.ques[i].choice4 !== "nul1Span") {%>
+
+                        <% if(correct === "o3") { %>
+                            <p name="o3" class="quiz_options <%= classCH %>"><span class="option_span">Option 3 : </span> <%= quizinfo.ques[i].choice3 %></p>
+                        <% } else { %>
+                            <p name="o3" class="quiz_options"><span class="option_span">Option 3 : </span> <%= quizinfo.ques[i].choice3 %></p>
+                        <% } %>
+
+                        <% if(correct === "o4") { %>
+                            <p name="o4" class="quiz_options <%= classCH %>"><span class="option_span">Option 4 : </span> <%= quizinfo.ques[i].choice4 %></p>
+                        <% } else { %>
+                            <p name="o4" class="quiz_options"><span class="option_span">Option 4 : </span> <%= quizinfo.ques[i].choice4 %></p>
+                        <% } %>
+
+                    <% }%>
+                    <br>
+                </div>     
+                <% } %>
+                
+            </div>
+            
+        </div>
+    </div>   
+    <script src="/main.js"></script>
+</body>
+</html>

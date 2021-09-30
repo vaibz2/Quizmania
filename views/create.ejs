@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quizmania - Make and play online quizes</title>
+
+    <link rel="icon" href="../images/icon-img1.png">
+
+    <!-- CSS styles-->
+    <link rel="stylesheet" href="../css/style1.css">
+
+    <!--Google Fonts-->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;600;800;900&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    
+    <script>
+    $(document).ready(function(){
+        $('#icon-bars').click(function(){
+            $('ul').toggleClass('show');
+        });
+    });
+
+    </script>
+
+</head>
+<body>
+    <!-- Section 1-->
+
+    <div id="Section-1">
+        <nav class="navigation-bar createNav">
+            <div class="logo">
+                <a class="logo-txt" href="/">Quizmania</a>
+            </div>
+            
+            <ul>
+                <li class="nav-list new-nav-list create-navlist">
+                    <div class="dropdown">
+                    <button class="dropbtn"><i class="fas fa-cog"></i> Settings </button>
+                    <div class="dropdown-content">
+                      <a href="/dashboard/logout">Log out</a>
+                    </div>
+                  </div></li>
+            </ul>
+            <label id="icon-bars">
+                <i class="fas fa-bars"></i>
+            </label>
+        </nav>
+        <form method="POST">
+            <div class="creatediv-quizDetails">
+                <div class="crt-step">
+                    <h3>1️. Quiz Info</h3>
+                    <br>
+                    <div class="step1-divs">
+                        <label class="step1-labls">Quiz topic<span class="reqstar">*</span></label><br>
+                        <textarea style="font-weight: 500;" rows="2" class="quizinfo-input" name="quiz_topic" required autofocus></textarea>
+                    </div>
+                    <div class="step1-divs">
+                        <label class="step1-labls">Description</label><br>
+                        <textarea rows="5" class="quizinfo-input" name="quiz_description" aria-invalid="true"></textarea>
+                    </div>
+                    <div class="step1-divs required-inputs">
+                        
+                        <div style="display: inline-block;">
+                            <label class="step1-labls">Date<span class="reqstar">*</span></label><br>
+                            <input style="background-color: rgb(230, 230, 230); border: none;" name="quiz_date" type="date" class="date inpDate" reqiured>
+                        </div>
+                        <div class="respD_T">
+                            <label class="step1-labls">Start Time<span class="reqstar">*</span></label><br>
+                            <input style="background-color: rgb(230, 230, 230); border: none;" name="quiz_time" type="time" class="date inpTime" required>
+                        </div>
+                        <div class="respD_T pointResp" >
+                            <label class="step1-labls">Points for a correct answer<span class="reqstar">*</span></label><br>
+                            <input style="background-color: rgb(230, 230, 230); border: none;" name="points" type="number" class="point" required>
+                        </div>
+                        <br><br>
+                        <div class="nwe pointResp" >
+                            <label class="step1-labls">Time for answering one question<span class="reqstar">*</span></label><br>
+                            <input style="background-color: rgb(230, 230, 230); border: none;" name="time_perQues" type="number" class="point" placeholder="25 seconds" required>
+                        </div>
+                        <div class="nwe pointResp" >
+                            <label class="step1-labls">Time for reviewing correct answer for one question<span class="reqstar">*</span></label><br>
+                            <input style="background-color: rgb(230, 230, 230); border: none;" name="time_reviewPerQues" type="number" class="point" placeholder="10 seconds" required>
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+                <button class="info-btn" type="submit">Next</button>
+            </div>
+            
+        </form>
+        
+    </div>
+
+    
+</body>
+</html>

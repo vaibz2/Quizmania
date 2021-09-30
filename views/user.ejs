@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quizmania - Make and play online quizes</title>
+
+    <link rel="icon" href="images/icon-img1.png">
+
+    <!-- CSS styles-->
+    <link rel="stylesheet" href="css/style1.css">
+
+    <!--Google Fonts-->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;600;800;900&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    
+    <script>
+    $(document).ready(function(){
+        $('#icon-bars').click(function(){
+            $('ul').toggleClass('show');
+        });
+    });
+
+    </script>
+
+</head>
+<body>
+    <!-- Section 1-->
+
+    <div id="Section-1">
+        <nav class="navigation-bar createNav dashNav">
+            <div class="logo">
+                <a class="logo-txt" href="/">Quizmania</a>
+            </div>
+            
+            <ul>
+                <li class="nav-list new-nav-list">
+                    <div class="dropdown">
+                        <button class="dropbtn"><i class="fas fa-cog"></i> Settings </button>
+                        <div class="dropdown-content">
+                            <a href="/dashboard/logout">Log out</a>
+                        </div>
+                    </div>
+                <a class="Crt-btn" href="/dashboard/Create"><button class="create-btn user-btn">Create Quiz</button></a>
+            </ul>
+            <label id="icon-bars">
+                <i class="fas fa-bars"></i>
+            </label>
+        </nav>
+
+        <div class="user-dashboard dashboard-response">
+            <div class="usr-nmdiv">
+                <h4 class="user-name"><img class="user-img" src="images/user.png"> <span class="usr-pname"></span><%= userDetails.fullName %> </h4>
+                
+            </div>
+            <div class="pencil-div">
+                <i class="fas fa-pencil-alt edit-icon"></i>
+            </div>
+            
+            <div class="timeline">
+                <div class="up-box">
+                    <span>GAME MODE</span>
+                    <p><i class="fas fa-users"></i> MULTIPLAYER</p>
+                </div>
+                <div class="available-quizes">
+                   
+                    <div class="createquiz-div">
+                        
+                        <i class="bullet far fa-dot-circle"></i>
+                        <a href="/dashboard/Create"><button class="crt-usr-btn">Create a quiz</button></a>
+                    </div>
+                    
+                    <% if(userDetails.quiz.length > 0) { %>
+                    <% for(i = userDetails.quiz.length - 1; i >= 0; i--) { %>
+                    <% var date = userDetails.quiz[i].quizDate; %>
+                    <% var index = date.indexOf(','); %>
+                    <% var day = date.slice(0, index); %>
+                    <% var onlydate = date.slice(index+1, date.length); %>
+                        
+                    <form action="/dashboard" id="dashboard-form" method="POST">
+                        <div class="single-set">
+                            <div class="serial-date">
+                                <div style="width: 130px;">
+                                    <p class="quiz-day"> <%= day %> </p><br>
+                                    <p class="quiz-date"> <%= onlydate %></p>
+                                </div>
+                                
+                                <div class="point-dot">
+                                    <i style="vertical-align: middle; margin-top: 12px;" class="bullet far fa-dot-circle"></i>
+                                </div>
+                                
+                                
+                            </div>
+                            <div class="quiz-div">
+                                
+                                <div >
+                                    <i class="resp-clock far fa-clock"></i>
+                                    <p class="inln quiz-time"><%= userDetails.quiz[i].quizTime %></p>
+                                </div>
+                                    
+                                <div >
+                                    <p class="inln quiz-code"><%= userDetails.quiz[i].quiz_id %></p>
+                                    
+                                </div>
+                                <div >
+                                    <p class="inln quiz-name"><%= userDetails.quiz[i].topicName %></p>
+                                </div>
+                                
+                                
+                                
+                                    
+                                
+                            </div>
+                            <div class="inln launch-div">
+                                <div style="float: right;">
+                                <a style="text-decoration: none;" class="launch-btn" name="launchWaiting" href="/playscreen/?user=<%= userDetails.quiz[i].quiz_id %>" value= <%= userDetails.quiz[i].quiz_id %> >Launch Waiting Screen</a>
+
+                                <div style="display: inline-block;" class="dots-dropdown">
+                                    
+                                    <i class="dots3 fas fa-ellipsis-v"></i>
+                                    <div class="dots-menu">
+                                        <ul>
+                                            <li style="list-style: none;"><a class="dots-content" name="quizDetail" value= <%= userDetails.quiz[i].quiz_id %>  href="/dashboard/<%= userDetails.quiz[i].quiz_id %>" ><i class="fas fa-eye"></i> View Quiz Details</a></li>
+                                            <li style="list-style: none;"><button type="submit" onclick="return getConfirmation();" class="dots-content delBtn" name="del" value= <%= userDetails.quiz[i].quiz_id %> ><i class="fas fa-trash-alt"></i> Delete</button></li>
+                                            <li style="list-style: none;"><a class="dots-content" name="quizDetail" value= <%= userDetails.quiz[i].quiz_id %>  href="whatsapp://send?text=<%= userDetails.fullName %> is inviting you to Quizmania!!!                                                                                                                            Topic: <%= userDetails.quiz[i].topicName %>,                                                                                                                     Quiz will start at <%= userDetails.quiz[i].quizTime %> on <%= userDetails.quiz[i].quizDate %>,                                                                                                                                                                 Quiz Code: <%= userDetails.quiz[i].quiz_id %> or you can just click on this link : http://localhost:3000/playscreen?student=<%= userDetails.quiz[i].quiz_id %> "><i class="fas fa-share"></i> Share</a></li>
+                                            <li style="list-style: none;"><a class="dots-content" name="quizDetail" value= <%= userDetails.quiz[i].quiz_id %>  href="/playground/results/<%=userDetails.quiz[i].quiz_id %>" ><i class="fas fa-database"></i> Student Data</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </form>
+                    <% }} %>
+                </div>
+            </div>
+        </div>
+    
+    
+    <script src="/main.js"></script>
+    <%- include("partials/footer-2") -%>
+</body>
+</html>

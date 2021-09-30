@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quizmania - Make and play online quizes</title>
+
+    <link rel="icon" href="/images/icon-img1.png">
+
+    <!-- CSS styles-->
+    <link rel="stylesheet" href="/css/style1.css">
+
+    <!--Google Fonts-->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;600;800;900&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome-->
+    <!-- <script src="https://kit.fontawesome.com/a076d05399.js"></script> -->
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    
+    <script>
+    $(document).ready(function(){
+        $('#icon-bars').click(function(){
+            $('ul').toggleClass('show');
+        });
+    });
+
+    </script>
+    
+</head>
+<body>
+    <!-- Section 1-->
+
+    <div id="Section-1">
+        <nav class="navigation-bar createNav">
+            <div class="logo">
+                <a class="logo-txt" href="/">Quizmania</a>
+            </div>
+            
+            
+            <label id="icon-bars">
+                <i class="fas fa-bars"></i>
+            </label>
+        </nav>
+        
+            <div style="text-align: center; min-height: 100vh;" class="creatediv-quizDetails">
+                <div class="crt-step playground-div">
+                    <h4><%= Quizmania.topicName %></h4>
+                    <br>
+
+                    <div style="text-align: left;" id="div1" class="ques-div">
+                        <div class="numbering" style='border-bottom: 1px solid #04AA6D; margin-bottom: 15px;'>
+                            <span id="numset" name="numSet">1</span> 
+                        
+                                <p id="timerClock" style="float: right; font-size: 20px; font-weight: 500; letter-spacing: 5px;" ><%= Quizmania.ansTime %></p>
+                                <p id="reviewTym" style="display: none;"><%= Quizmania.reviewtime %></p>
+                        </div>
+                        
+                        <div class="step1-divs">
+                            
+                            <p style="display: inline-block;"><span id="quesID" class="quesNum">Q1. </span><span id="ques_box" class="ques__"><%= Quizmania.ques[0].quesName %></span></p>
+                            <br><br>
+                        </div>
+                        <div class="step1-divs">
+                            <label class="step1-labls">Answer:</label>
+                            <br><br>
+
+                            
+                            <button id="o1" onclick="checkAnswer(this.name, this.value);" class="playground-option playHover" name="o1"><%= Quizmania.ques[0].choice1 %></button>
+                            
+                            <button id="o2" onclick="checkAnswer(this.name, this.value); " class="playground-option playHover" name="o2"> <%= Quizmania.ques[0].choice2 %></button>
+                           
+                            <button id="o3" onclick="checkAnswer(this.name, this.value); " class="playground-option playHover" name="o3"><%= Quizmania.ques[0].choice3 %></button>
+                            
+                            <button id="o4" onclick="checkAnswer(this.name, this.value); " class="playground-option playHover" name="o4"><%= Quizmania.ques[0].choice4 %></button>
+                           
+
+                        </div>
+                    </div>
+                    <br>
+                    <span id="newQuesBox"></span>
+                </div>
+            </div>
+            
+            <div class="navbar">
+                
+                
+            
+            </div>
+    </div>
+    
+
+    <script src="/main.js" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+        
+    var DATABASE_ANS_TIME = (Number)("<%= Quizmania.ansTime%>");
+    var DATABASE_REVIEW_TIME = (Number)("<%=Quizmania.reviewtime %>");
+    var TOTAL_QUESTIONS = (Number)("<%= Quizmania.ques.length %>");
+
+    var NEXT_QUESTION = 0;
+
+    let x =  document.cookie;
+    
+    if(document.cookie.indexOf('mycookie')==-1) {
+    // cookie doesn't exist, create it now
+    document.cookie = 'mycookie=1';
+    document.cookie = 'admin=1';
+    }
+    else {
+        
+        var onRefresh = new XMLHttpRequest();
+            onRefresh.open("POST", "/on-refresh-playground/student/eft101101--post-delete-score?quizID=<%= Quizmania.quiz_id %>", true );
+            
+            onRefresh.send();
+        
+    }
+
+    
+    console.log(TOTAL_QUESTIONS);
+    console.log(DATABASE_ANS_TIME);
+    console.log(DATABASE_REVIEW_TIME);
+
+    var ques = {};
+
+    xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("GET","/api/ury7jbjvdfgwuj3883b-e8hdlbv/<%=Quizmania.quiz_id%>", true);
+        xmlhttp.onreadystatechange=function(){
+
+            if (xmlhttp.readyState==4 && xmlhttp.status==200){
+                var quizDD = JSON.parse(xmlhttp.responseText);
+                ques = quizDD.ques; 
+               
+            }
+        }
+
+        xmlhttp.send();
+
+
+    var isButtonClicked = false;
+    var stop_now = false;
+
+    var myTime;
+
+    // onclick function 
+
+    function checkAnswer(name, value){
+        
+        console.log(name);
+        clearInterval(countdown);
+        clearTimeout(myTime);
+        if(NEXT_QUESTION === TOTAL_QUESTIONS - 1){
+            stop_now = true;
+            console.log("khtmmm quiz, chl hun nikl etho");
+        }
+        console.log(value);
+        
+        document.getElementById('o1').removeAttribute("onclick");
+        document.getElementById('o2').removeAttribute("onclick");
+        document.getElementById('o3').removeAttribute("onclick");
+        document.getElementById('o4').removeAttribute("onclick");
+        
+        document.getElementById('o1').classList.remove("playHover");
+        document.getElementById('o2').classList.remove("playHover");
+        document.getElementById('o3').classList.remove("playHover");
+        document.getElementById('o4').classList.remove("playHover");
+
+        
+        var CORRECT_ANS = ques[NEXT_QUESTION].correctCH;
+       
+        var ansButton = document.getElementById(name);
+        if(name === CORRECT_ANS){
+            ansButton.className += " selectedAns";
+            var ADD_TO_DB = new XMLHttpRequest();
+
+            ADD_TO_DB.open("POST", "/add-score-to-the-account/student/addBy100287392uefi/smt-boot?quizID=<%= Quizmania.quiz_id %>&points=<%=Quizmania.points%>", true);
+            ADD_TO_DB.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            ADD_TO_DB.send();
+
+            console.log("wah wah0");
+        } else {
+            document.getElementById(CORRECT_ANS).className += " selectedAns";
+            ansButton.className += " wrong-ans";
+            console.log("thu thu thuo");
+        }
+
+        quesTimer(DATABASE_REVIEW_TIME);
+
+        setTimeout(function(){
+            console.log("next question");
+            NEXT_QUESTION++;
+            
+            if(NEXT_QUESTION < TOTAL_QUESTIONS) {
+                document.cookie = "current=" + NEXT_QUESTION;
+            var ques_number_ele = document.getElementById("quesID");
+            var ques_ele = document.getElementById("ques_box");
+
+            document.getElementById(name).classList.remove("wrong-ans");
+            document.getElementById(CORRECT_ANS).classList.remove("selectedAns");
+
+
+            document.getElementById("numset").innerHTML = NEXT_QUESTION + 1;
+            ques_number_ele.innerHTML = "Q" + (NEXT_QUESTION + 1) + ". ";
+            
+            ques_ele.innerHTML = ques[NEXT_QUESTION].quesName;
+            
+            
+                document.getElementById('o1').innerHTML = ques[NEXT_QUESTION].choice1;
+                document.getElementById('o2').innerHTML = ques[NEXT_QUESTION].choice2;
+            
+            if(ques[NEXT_QUESTION].choice3 !== "nul1Span" && ques[NEXT_QUESTION].choice4 !== "nul1Span"){
+                document.getElementById('o3').classList.remove("ifNotAOption");
+                document.getElementById('o4').classList.remove("ifNotAOption");
+                document.getElementById('o3').innerHTML = ques[NEXT_QUESTION].choice3;
+                document.getElementById('o4').innerHTML = ques[NEXT_QUESTION].choice4;
+            } else {
+                document.getElementById('o3').className += " ifNotAOption";
+                document.getElementById('o4').className += " ifNotAOption";
+            }
+
+            document.getElementById('o1').setAttribute("onclick", "checkAnswer(this.name, this.value)");
+            document.getElementById('o2').setAttribute("onclick", "checkAnswer(this.name, this.value)");
+            document.getElementById('o3').setAttribute("onclick", "checkAnswer(this.name, this.value)");
+            document.getElementById('o4').setAttribute("onclick", "checkAnswer(this.name, this.value)");
+            
+            document.getElementById('o1').className += " playHover";
+            document.getElementById('o2').className += " playHover";
+            document.getElementById('o3').className += " playHover";
+            document.getElementById('o4').className += " playHover";
+
+            
+            quesTimer(DATABASE_ANS_TIME);
+
+
+            if_notClicked();
+            } 
+            else {
+                window.location.href = "playground/results/<%= Quizmania.quiz_id %>";
+            }
+
+            isButtonClicked = false;
+        }, (DATABASE_REVIEW_TIME + 2) * 1000);
+
+
+        isButtonClicked = true;
+    }
+
+    // onclick function ends her
+
+    var my_var = 0;
+
+    function if_notClicked() {
+        
+    myTime = setTimeout(function(){
+        console.log(document.cookie);
+        
+        if(NEXT_QUESTION >= TOTAL_QUESTIONS){
+            console.log("okokok, bASE condition");
+            return;
+        }
+        if(!isButtonClicked){
+            clearInterval(countdown);
+            quesTimer(DATABASE_REVIEW_TIME);
+            
+            var ans = ques[NEXT_QUESTION].correctCH;
+            var ansButton = document.getElementById(ans);
+            ansButton.className += " selectedAns";
+            document.getElementById('o1').removeAttribute("onclick");
+            document.getElementById('o2').removeAttribute("onclick");
+            document.getElementById('o3').removeAttribute("onclick");
+            document.getElementById('o4').removeAttribute("onclick");
+            
+            document.getElementById('o1').classList.remove("playHover");
+            document.getElementById('o2').classList.remove("playHover");
+            document.getElementById('o3').classList.remove("playHover");
+            document.getElementById('o4').classList.remove("playHover");
+
+            setTimeout(function(){
+                console.log("next question");
+
+                NEXT_QUESTION++;
+
+                if(NEXT_QUESTION < TOTAL_QUESTIONS) {
+                    document.cookie = "current=" + NEXT_QUESTION;
+                    var ques_number_ele = document.getElementById("quesID");
+                    var ques_ele = document.getElementById("ques_box");
+
+                    ansButton.classList.remove("selectedAns");
+
+                    document.getElementById("numset").innerHTML = NEXT_QUESTION + 1;
+                    ques_number_ele.innerHTML = "Q" + (NEXT_QUESTION + 1) + ". ";
+                    
+                    ques_ele.innerHTML = ques[NEXT_QUESTION].quesName;
+                    
+                    
+                        document.getElementById('o1').innerHTML = ques[NEXT_QUESTION].choice1;
+                        document.getElementById('o2').innerHTML = ques[NEXT_QUESTION].choice2;
+                    
+                    if(ques[NEXT_QUESTION].choice3 !== "nul1Span" && ques[NEXT_QUESTION].choice4 !== "nul1Span"){
+                        document.getElementById('o3').classList.remove("ifNotAOption");
+                        document.getElementById('o4').classList.remove("ifNotAOption");
+                        document.getElementById('o3').innerHTML = ques[NEXT_QUESTION].choice3;
+                        document.getElementById('o4').innerHTML = ques[NEXT_QUESTION].choice4;
+                    } else {
+                        document.getElementById('o3').className += " ifNotAOption";
+                        document.getElementById('o4').className += " ifNotAOption";
+                    }
+
+                    document.getElementById('o1').setAttribute("onclick", "checkAnswer(this.name, this.value)");
+                    document.getElementById('o2').setAttribute("onclick", "checkAnswer(this.name, this.value)");
+                    document.getElementById('o3').setAttribute("onclick", "checkAnswer(this.name, this.value)");
+                    document.getElementById('o4').setAttribute("onclick", "checkAnswer(this.name, this.value)");
+
+                    document.getElementById('o1').className += " playHover";
+                    document.getElementById('o2').className += " playHover";
+                    document.getElementById('o3').className += " playHover";
+                    document.getElementById('o4').className += " playHover";
+
+                    
+                    quesTimer(DATABASE_ANS_TIME);
+                    if_notClicked();
+                } 
+                else {
+                    window.location.href = "playground/results/<%= Quizmania.quiz_id %>";
+                }
+
+            }, (DATABASE_REVIEW_TIME + 2) * 1000);
+        } else {
+            console.log("else wali");
+        }
+        
+    }, (DATABASE_ANS_TIME + 2) *1000);
+    }
+
+    if_notClicked();
+
+    quesTimer(DATABASE_ANS_TIME);
+    
+
+</script>
+    
+</body>
+</html>

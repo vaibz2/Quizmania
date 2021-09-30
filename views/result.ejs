@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quizmania - Make and play online quizes</title>
+
+    <link rel="icon" href="/images/icon-img1.png">
+
+    <!-- CSS styles-->
+    <link rel="stylesheet" href="/css/style1.css">
+
+    <!--Google Fonts-->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;600;800;900&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    
+    <script>
+    $(document).ready(function(){
+        $('#icon-bars').click(function(){
+            $('ul').toggleClass('show');
+        });
+    });
+
+    </script>
+    
+</head>
+<body>
+    <!-- Section 1-->
+
+    <div id="Section-1">
+        <nav class="navigation-bar createNav result-nav">
+            <div class="logo">
+                <a class="logo-txt" href="/">Quizmania</a>
+            </div>
+            
+            
+            <label id="icon-bars">
+                <i class="fas fa-bars"></i>
+            </label>
+        </nav>
+        
+            <div style="text-align: center; min-height: 100vh;" class="creatediv-quizDetails winners-div">
+                <div class="crt-step playground-div">
+                    <h4 class="result-topicName"><%= topic %></h4>
+                    
+                    <h5 style="font-size: 20px; font-weight: 600;">Total Marks: <%= totalMarks%></h5>
+                    <br>
+                </div>
+                
+                <div class="winner-students-result-div">
+                    
+
+                    
+                    <% var i = 1; %>
+                    <% var prevPoints = -1; %>
+                    <% for (let [key, value] of student_details) { %>
+
+                        <% if(value == prevPoints) { i--; }%>
+
+                        <% if(i === 1) { %> 
+                            
+
+                            <div class="stud-div1">
+                                <p class="num-edit-div" style="display: inline-block; font-size: 18px; font-weight: 600; color: white;"><%= i %></p>
+                                <p id="stud-name"><%= key.slice(0, key.length - 6) %> </p>
+                                <p id="stud-points"><%= value %> <i style="color: gold;" class="fas fa-trophy"></i></p>
+                            </div>
+
+                        <% } else if (i === 2) { %>
+                            
+                            <div class="stud-div1">
+                                <p class="num-edit-div" style="display: inline-block; font-size: 18px; font-weight: 600; color: white; background-color: silver;"><%= i %></p>
+                                <p id="stud-name"><%= key.slice(0, key.length - 6) %> </p>
+                                <p id="stud-points"><%= value %> <i style="color: silver;" class="fas fa-trophy"></i></p>
+                            </div>
+                        
+                        <% } else if (i === 3) { %>
+                            
+                            <div class="stud-div1">
+                                <p class="num-edit-div" style="display: inline-block; font-size: 18px; font-weight: 600; color: white; background-color: #cd7f32;"><%= i %></p>
+                                <p id="stud-name"><%= key.slice(0, key.length - 6) %> </p>
+                                <p id="stud-points"><%= value %> <i style="color: #cd7f32;" class="fas fa-trophy"></i></p>
+                            </div>
+                        
+                        <% } else{ %>
+
+                            <div class="stud-div1">
+                                <p class="num-edit-div-players" style="display: inline-block; font-size: 18px; font-weight: 600; color: white;"><%= i %></p>
+                                <p id="stud-name"><%= key.slice(0, key.length - 6) %> </p>
+                                <p id="stud-points"><%= value %> <i class="fas fa-trophy"></i></p>
+                            </div>
+
+                        <% } %>
+
+                        <% i++; %>
+                        <% prevPoints = value; %>
+                    <% } %>
+                    
+
+                </div>
+            </div>
+            
+            <!-- 1. Gold Trophy  -->
+
+            <!-- <div class="stud-div1">
+                <p class="num-edit-div" style="display: inline-block; font-size: 18px; font-weight: 600; color: white;">1</p>
+                <p id="stud-name">Player 1 </p>
+                <p id="stud-points">100 <i style="color: gold;" class="fas fa-trophy"></i></p>
+            </div> -->
+            
+
+            <!-- 2. Silver Trophy  -->
+
+            <!-- <div class="stud-div1">
+                <p class="num-edit-div" style="display: inline-block; font-size: 18px; font-weight: 600; color: white; background-color: silver;">2</p>
+                
+                <p id="stud-name">Player 2 </p>
+                <p id="stud-points">80 <i style="color: silver;" class="fas fa-trophy"></i></p>
+            </div> -->
+
+             <!-- 3. Bronze Trophy  -->
+
+             <!-- <div class="stud-div1">
+                <p class="num-edit-div" style="display: inline-block; font-size: 18px; font-weight: 600; color: white; background-color: #cd7f32;">3</p>
+                <p id="stud-name">Player 3 </p>
+                <p id="stud-points">75 <i style="color: #cd7f32;" class="fas fa-trophy"></i></p>
+            </div> -->
+
+
+             <!-- 4. Simple Player Medal  -->
+
+             <!-- <div class="stud-div1">
+                <p class="num-edit-div-players" style="display: inline-block; font-size: 18px; font-weight: 600; color: white;"></p>
+                <p id="stud-name">Player 4 </p>
+                <p id="stud-points">65 <i class="fas fa-trophy"></i></p>
+            </div> -->
+    </div>
+    
+
+    <script src="/main.js" type="text/javascript"></script>
+
+    
+</body>
+</html>

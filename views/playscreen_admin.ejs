@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quizmania - Make and play online quizes</title>
+
+    <link rel="icon" href="../images/icon-img1.png">
+
+    <!-- CSS styles-->
+    <link rel="stylesheet" href="../css/style1.css">
+
+    <!--Google Fonts-->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;600;800;900&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    
+    <script>
+    $(document).ready(function(){
+        $('#icon-bars').click(function(){
+            $('ul').toggleClass('show');
+        });
+    });
+
+    
+    </script>
+
+</head>
+<body>
+    <!-- Section 1-->
+
+    <div id="Section-1">
+        <nav class="navigation-bar createNav">
+            <div class="logo">
+                <a class="logo-txt" href="/">Quizmania</a>
+            </div>
+            
+            <% if(screenSide === 1){ %>
+            <ul>
+                <li style="padding: 28px 0;"  class="nav-list new-nav-list">
+                    <div class="dropdown">
+                        <button class="dropbtn"><i class="fas fa-cog"></i> Settings </button>
+                        <div class="dropdown-content">
+                            <a href="/dashboard/logout">Log out</a>
+                        </div>
+                    </div>
+                
+            </ul>
+
+            <label id="icon-bars">
+                <i class="fas fa-bars"></i>
+            </label>
+
+            <% } %>
+        </nav>
+
+        <form name="playScreenForm" action="/playscreen" method="POST">
+            <div style="background: white; text-align: center" class="user-dashboard resp_user">
+                <div class="nomd">
+                    <div style="display:inline-block;" class="users-connected">
+                        <h3 style="color: green;">Users connected: </h3>
+                        <br>
+                        
+                        <%- include('users_connected'); %>
+                    
+                    
+                    </div>
+                    <div class="quiz_det" style="display:inline-block;" >
+                        
+                        <div style="text-align: center;" id="startTimer"></div>
+                        <br><br>
+                        
+                        <% if(screenSide === 0){ %>
+                            <h3 style="color: #0061a8;">Organized by: <%= organizer %></h3><br>
+                            <h2 style="color: #1a55a7;" ><%= userSide.topicName %></h2><br><br>
+                            <div id="timerCont">
+                                <p style="color: rgb(35, 35, 35); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Please wait.......for the organizer to start the quiz.</p>
+                            </div>
+                            
+                            <input type="hidden" name="quizCode" value="<%= userSide.quiz_id %>">
+                        <% } %>
+
+                        <% if(screenSide === 1){ %>
+                            <h4 style="color:rgb(35, 35, 35); font-weight: 600;">Quiz Code: </h4>
+                            <h2 style="color:rgb(35, 35, 35); letter-spacing: 5px;"><%= userSide.quiz_id %></h2>
+                            <br>
+                            <h2 style="color: #1a55a7;" ><%= userSide.topicName %></h2><br><br>
+                            <% if(!userSide.startPlay){  %>
+                                <% if(userSide.ques.length === 0) { %>
+                                    <p style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: black;">Cannot start the quiz , it doesn't contain any question.</p>
+                                <% } else {%>
+                            <a id="gayaBtn" style="margin: 10px 5px;"><button class="btnStart hbtn" onclick="submitTheForm();" type="button">Start</button></a> 
+                            <% }} %>
+                            <button class="btnStart" style="margin: 10px 5px;" type="submit" name="qstop" value="<%= userSide.quiz_id %>">Stop</button>
+                            <input type="submit" id="qstartBtn" class="qstartHid" name="qstart" value="<%= userSide.quiz_id %>"></button>
+                        <% } %>
+
+
+                        <input type="text" class="qstartHid" name="setStart" value="<%= userSide.quiz_id %>">
+                    </div>
+                </div>
+                
+            </div>
+            <script type="text/javascript">
+
+            document.cookie = "mycookie=1; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            function submitTheForm() {
+                setTimeout(function(){
+                    document.getElementById("qstartBtn").click();
+
+                }, 10000);
+
+                var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "/startTheQuiz/10sAfter?setStart=<%= userSide.quiz_id %>", true );
+                    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                    xhr.send();
+                
+                var gayaBtn = document.getElementById("gayaBtn");
+                gayaBtn.remove();
+            }
+            
+            </script>
+        </form>
+    </div>
+    <script src="/main.js" type="text/javascript"></script>
+</body>
+</html>

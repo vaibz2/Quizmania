@@ -1,0 +1,56 @@
+<div id="usr_liveDiv">
+    
+</div>
+
+<script type="text/javascript">
+
+    var len;
+
+    let hashmap2 = new Map();
+
+    var doc =  document.getElementById("usr_liveDiv");
+    var names = ["default"];
+    var startPlay = 1;
+    var intervalId = window.setInterval(function(){
+        xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("GET","/api/ury7jbjvdfgwuj3883b-e8hdlbv/<%=userSide.quiz_id%>", true);
+        xmlhttp.onreadystatechange=function(){
+
+            if (xmlhttp.readyState==4 && xmlhttp.status==200){
+                var name = JSON.parse(xmlhttp.responseText);
+                   
+                    for(i = 0; i < name.students.length; i++){
+                        var pp = document.createElement('p');
+                        pp.className = "participant";
+                        pp.style = "background-color: #F4F56E;"
+                        
+                        var flag = false;
+                        var studentName = name.students[i].studName;
+                        for(j = 0; j < names.length; j++){
+                            if(names[j] === studentName){
+                                flag = true;
+                                break;
+                            }
+                        } if(!flag){
+                            names.push(name.students[i].studName);
+                            pp.innerHTML = name.students[i].studName.slice(0, name.students[i].studName.length - 6);
+                            doc.appendChild(pp);
+                        }
+                        
+                    } 
+                    if(name.startPlay === true && startPlay === 1){
+                        play();
+                        setTimeout(function(){
+                            window.location.href = "/playground?student=" + name.quiz_id + "";
+                        }, 10000);
+                        startPlay = 0;
+                    }
+                    if(name.isStarted === false){
+                        location.reload();
+                    }
+            }
+        }
+        xmlhttp.send();
+    }, 1000);
+
+</script>

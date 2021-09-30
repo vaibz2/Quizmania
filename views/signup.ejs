@@ -1,0 +1,36 @@
+<%- include("partials/header") -%>
+
+    <div id="signup" >
+        <h2 class="register-tag">Please register yourself as an organizer!</h2>
+        <form action="/signup" method="post">
+            <div class="signup-box">
+
+                <div class="signup-info">
+                    <div class="fields">
+                        <input class="inp" name="e_mail" type="email" placeholder="Email address*" autofocus>
+                    </div>
+                    <br>
+                    <div class="fields">
+                        <input class="inp" name="password"type="password" placeholder="Password*">
+                    </div>
+                    <br>
+                    <div class="fields">
+                        <input class="inp" name="full_name" placeholder="Full name*">
+                    </div>
+                </div>
+                <br>
+                <button type="submit" class="crt-btn">
+                    <div>
+                        <h3 class="crt-acc">Create an account</h3>
+                    </div>
+                </button>
+            </div>
+        </form>
+        OR
+        <a class="already-have-acc" href="/login">already have an account</a>
+    </div>
+
+</div>
+
+
+

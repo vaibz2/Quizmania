@@ -1,0 +1,39 @@
+<%- include("partials/header") -%>
+
+    <div id="signup" >
+        <h2 class="register-tag">Login</h2>
+        <form action="/login" method="post">
+            <div class="signup-box">
+
+                <div class="signup-info">
+                    <div class="fields">
+                        <input class="inp inp-top" name="login_mail" type="email" placeholder="Email address*" autofocus>
+                    </div>
+                    <br>
+                    <div class="fields">
+                        <input class="inp" name="login_password"type="password" placeholder="Password*">
+                    </div>
+                </div>
+                <p id="wrongCred">.</p>
+                
+                <button type="submit" class="crt-btn">
+                    <div>
+                        <h3 class="crt-acc">Login</h3>
+                    </div>
+                </button>
+            </div>
+        </form>
+        Oh no!
+        <a class="already-have-acc forget" href="#">I forgot my password!</a>
+        <br><br>
+        <br>
+        <p>Haven't registered yet?</p>
+        <a class="already-have-acc" href="/signup">Create an account</a>
+    </div>
+
+</div>
+
+<script type="module" src="index1.js"></script>
+
+</body>
+</html>
